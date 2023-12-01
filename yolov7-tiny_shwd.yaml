@@ -1,0 +1,21 @@
+__BASE__: [
+  './configs/yolov7/yolov7-tiny.yaml',
+]
+
+per_batch_size: 16 # 单卡batchsize，总的batchsize=per_batch_size * device_num
+img_size: 640 # image sizes
+weight: ./model/yolov7-tiny_300e_mAP375-d8972c94.ckpt
+strict_load: False # 是否按严格加载ckpt内参数，默认True，若设成False，当分类数不一致，丢掉最后一层分类器的weight
+log_interval: 10 # 每log_interval次迭代打印一次loss结果
+
+data:
+  dataset_name: shwd
+  train_set: ./data/SHWD/train.txt # 实际训练数据路径
+  val_set: ./data/SHWD/val.txt
+  test_set: ./data/SHWD/val.txt
+  nc: 2 # 分类数
+  # class names
+  names: [ 'person',  'hat' ] # 每一类的名字
+
+optimizer:
+  lr_init: 0.001  # initial learning rate
